@@ -28,7 +28,7 @@ class CameraFragment : Fragment() {
         val binding = FragmentCameraBinding.bind(view)
         fragmentBinding = binding
 
-        binding.cameraTitle.text = "Testing"
+        //binding.cameraTitle.text = "Testing"
 
         binding.buttonPhotos.setOnClickListener {
             val random = Random()

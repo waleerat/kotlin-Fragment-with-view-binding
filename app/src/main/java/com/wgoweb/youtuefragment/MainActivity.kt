@@ -1,15 +1,12 @@
 package com.wgoweb.youtuefragment
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-
 import androidx.navigation.ui.NavigationUI
 import com.wgoweb.youtuefragment.databinding.ActivityMainBinding
 
@@ -38,17 +35,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSideNavigationMenu(navController: NavController) {
-
         binding.navView?.let {
             NavigationUI.setupWithNavController(it, navController)
         }
     }
 
-
     private fun setupActionBar(navController: NavController) {
-
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        val orientation = resources.configuration.orientation
+        when(orientation) {
+            1 -> {  //portrait
+                NavigationUI.setupActionBarWithNavController(this, navController)
+            }
+            2 -> {  //landscape
+                NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
+            }
+        }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -63,12 +66,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        //val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        //return NavigationUI.navigateUp(navController, binding.drawerLayout)
-        //return NavigationUI.navigateUp( navController, null )
-        return Navigation.findNavController(this,
+        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        return NavigationUI.navigateUp(navController, binding.drawerLayout)
+       /*
+        return Navigation.findNavController(
+            this,
             R.id.nav_host_fragment
-        ).navigateUp() || super.onSupportNavigateUp()
+        ).navigateUp() || super.onSupportNavigateUp()*/
 
     }
 }
